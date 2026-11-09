@@ -4,7 +4,7 @@ from ikpy.chain import Chain
 from ikpy.link import OriginLink, URDFLink
 import matplotlib.pyplot as plt
 
-L1 = 100
+L1 = 200
 L2 = 95
 L3 = 50
 
