@@ -1,8 +1,5 @@
 
-# Source - https://stackoverflow.com/a/69314131
-# Posted by Riccardo Bucco
-# Retrieved 2026-11-09, License - CC BY-SA 4.0
-
+# partial Source - https://stackoverflow.com/a/69314131
 
 from pathlib import Path
 import numpy as np
