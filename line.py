@@ -11,14 +11,16 @@ np.set_printoptions(precision=2)
 
 start = geometry.to_transformation_matrix([120, 10, 10], np.eye(3))
 #end = geometry.to_transformation_matrix([100, 50, 10], geometry.rz_matrix(np.pi))
-end = geometry.to_transformation_matrix([100, 200, 10],np.eye(3))
+#end = geometry.to_transformation_matrix([150, 175, 10], geometry.ry_matrix(np.pi))
+end = geometry.to_transformation_matrix([150, 175, 100], np.eye(3)) 
 
 frames = geometry.interpolate_frames(start, end, 30)
 
 trajectory = robot.inverse_kinematics_trajectory_frame(
     frames,
     initial_position=current_joints,
-    orientation_mode=None
+    orientation_mode=None,
+    regularization_parameter=0.01
 )
 
 def points_to_frames(points:List[int],orientation_matrix):
@@ -48,5 +50,12 @@ def visualise():
             plt.pause(0.025)
 
     plt.show()
-points_to_frames([[200, 10, 10],[100, 200, 10]], np.eye(3))
+# points_to_frames([[200, 10, 10],[100, 200, 10]], np.eye(3))
 visualise()
+
+
+#| Axis    | Color  | Code                 |
+#| ------- | ------ | -------------------- |
+#| Local X | Green  | directions_colors[0] |
+#| Local Y | Cyan   | directions_colors[1] |
+#| Local Z | Orange | directions_colors[2] |
