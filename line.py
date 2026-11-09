@@ -9,10 +9,15 @@ from typing import List, Dict
 current_joints = np.zeros(len(robot.links))
 np.set_printoptions(precision=2)
 
-start = geometry.to_transformation_matrix([120, 10, 10], np.eye(3))
+print(len(robot.links))          # should be 8
+print(len(robot.active_links_mask))  # should be 8
+print(sum(robot.active_links_mask))  # should be 6
+#end = geometry.to_transformation_matrix([150, 175, 100], np.eye(3)) 
+#start = geometry.to_transformation_matrix([120, 10, 10], np.eye(3))
 #end = geometry.to_transformation_matrix([100, 50, 10], geometry.rz_matrix(np.pi))
 #end = geometry.to_transformation_matrix([150, 175, 10], geometry.ry_matrix(np.pi))
-end = geometry.to_transformation_matrix([150, 175, 100], np.eye(3)) 
+start = geometry.to_transformation_matrix([0, 200, 0], np.eye(3)) 
+end =  geometry.to_transformation_matrix([200, 0, 0], np.eye(3))
 
 frames = geometry.interpolate_frames(start, end, 30)
 

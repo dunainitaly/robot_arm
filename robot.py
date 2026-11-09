@@ -4,7 +4,8 @@ from ikpy.chain import Chain
 from ikpy.link import OriginLink, URDFLink
 import matplotlib.pyplot as plt
 
-L1 = 200
+
+L1 = 80
 L2 = 95
 L3 = 50
 
@@ -13,48 +14,81 @@ robot = Chain(
     links=[
         OriginLink(),
 
+        # J1: base yaw
         URDFLink(
-            name="base",
+            name="base_yaw",
             origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
-            rotation=[0, 1, 0],
+            rotation=[0, 0, 1],
             bounds=(-np.pi, np.pi),
         ),
 
+        # J2: shoulder pitch
         URDFLink(
-            name="shoulder",
+            name="shoulder_pitch",
             origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
-            rotation=[0, 0, 1],
+            rotation=[0, 1, 0],
             bounds=(-np.pi / 2, np.pi / 2),
         ),
 
+        # J3: elbow pitch
         URDFLink(
-            name="elbow",
+            name="elbow_pitch",
             origin_translation=[L1, 0, 0],
             origin_orientation=[0, 0, 0],
-            rotation=[0, 0, 1],
+            rotation=[0, 1, 0],
             bounds=(-np.pi / 2, np.pi / 2),
         ),
 
+        # J4: wrist pitch
         URDFLink(
-            name="wrist",
+            name="wrist_pitch",
             origin_translation=[L2, 0, 0],
             origin_orientation=[0, 0, 0],
-            rotation=[0, 0, 1],
+            rotation=[0, 1, 0],
             bounds=(-np.pi / 2, np.pi / 2),
         ),
 
+        # J5: wrist roll
+        URDFLink(
+            name="wrist_roll",
+            origin_translation=[0, 0, 0],
+            origin_orientation=[0, 0, 0],
+            rotation=[1, 0, 0],
+            bounds=(-np.pi, np.pi),
+        ),
+
+        # J6: tool roll
+        URDFLink(
+            name="tool_roll",
+            origin_translation=[L3, 0, 0],
+            origin_orientation=[0, 0, 0],
+            rotation=[0, 0, 1],
+            bounds=(-np.pi, np.pi),
+        ),
+
+        # Fixed pen/end effector
         URDFLink(
             name="pen",
-            origin_translation=[L3, 0, 0],
+            origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=None,
             joint_type="fixed",
         ),
     ],
-    active_links_mask=[False, True, True, True, True, False],
+    active_links_mask=[
+        False,  # OriginLink
+        True,   # base_yaw
+        True,   # shoulder_pitch
+        True,   # elbow_pitch
+        True,   # wrist_pitch
+        True,   # wrist_roll
+        True,   # tool_roll
+        False,  # pen
+    ],
 )
+
 if __name__ == "__main__":
     print("start")
 
