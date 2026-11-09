@@ -5,30 +5,20 @@ import matplotlib.pyplot as plt
 from typing import List, Dict
 
 
-# Current joint configuration: one value per link, including fixed links.
+# start joint configuration
 current_joints = np.zeros(len(robot.links))
 np.set_printoptions(precision=2)
+def interpolate_points(
+    endpoints: list[list[float, float, float], list[float, float, float]],
+    n: int = 10,
+    endpoint: bool = True,
+) -> np.ndarray:
+    """Return n points evenly spaced along the segment between two 3D positions."""
+    a, b = np.asarray(endpoints, dtype=float)
+    t = np.linspace(0.0, 1.0, n, endpoint=endpoint)[:, None]
+    return a + t * (b - a)
 
-print(len(robot.links))          # should be 8
-print(len(robot.active_links_mask))  # should be 8
-print(sum(robot.active_links_mask))  # should be 6
-#end = geometry.to_transformation_matrix([150, 175, 100], np.eye(3)) 
-#start = geometry.to_transformation_matrix([120, 10, 10], np.eye(3))
-#end = geometry.to_transformation_matrix([100, 50, 10], geometry.rz_matrix(np.pi))
-#end = geometry.to_transformation_matrix([150, 175, 10], geometry.ry_matrix(np.pi))
-start = geometry.to_transformation_matrix([0, 200, 0], np.eye(3)) 
-end =  geometry.to_transformation_matrix([200, 0, 0], np.eye(3))
-
-frames = geometry.interpolate_frames(start, end, 30)
-
-trajectory = robot.inverse_kinematics_trajectory_frame(
-    frames,
-    initial_position=current_joints,
-    orientation_mode=None,
-    regularization_parameter=0.01
-)
-
-def points_to_frames(points:List[int],orientation_matrix):
+def points_to_frames(points:List[float,float,float],orientation_matrix):
     frames = []
     for point in points:
         matrix = np.eye(4)
@@ -55,7 +45,25 @@ def visualise():
             plt.pause(0.025)
 
     plt.show()
-# points_to_frames([[200, 10, 10],[100, 200, 10]], np.eye(3))
+
+
+#start = geometry.to_transformation_matrix([120, 10, 10], np.eye(3))
+#end = geometry.to_transformation_matrix([100, 50, 10], geometry.rz_matrix(np.pi))
+#end = geometry.to_transformation_matrix([150, 175, 10], geometry.ry_matrix(np.pi))
+start = geometry.to_transformation_matrix([0, 170, 0], np.eye(3)) 
+end =  geometry.to_transformation_matrix([170, 0, 0], np.eye(3))
+
+frames = geometry.interpolate_frames(start, end, 30)
+
+frames = points_to_frames(interpolate_points([[0, 170, 0],[170,0,0]]), np.eye(3))
+trajectory = robot.inverse_kinematics_trajectory_frame(
+    frames,
+    initial_position=current_joints,
+    orientation_mode=None,
+    regularization_parameter=0.01
+)
+
+# points_to_frames([[0, 170, 0],[170,0,0]], np.eye(3))
 visualise()
 
 
