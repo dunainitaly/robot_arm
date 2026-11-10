@@ -29,7 +29,7 @@ robot = Chain(
             origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(-np.pi / 2, np.pi / 2),
+            bounds=(-np.pi, np.pi),
         ),
 
         # J3: elbow pitch
@@ -38,7 +38,7 @@ robot = Chain(
             origin_translation=[L1, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(-np.pi / 2, np.pi / 2),
+            bounds=(-np.pi, np.pi),
         ),
 
         # J4: wrist pitch
@@ -47,7 +47,7 @@ robot = Chain(
             origin_translation=[L2, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(-np.pi / 2, np.pi / 2),
+            bounds=(-np.pi , np.pi),
         ),
 
         # J5: wrist roll

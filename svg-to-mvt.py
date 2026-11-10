@@ -42,15 +42,15 @@ def visualise(points):
 
 points = svg.svg_to_points(100, "test.svg")
 frames = points_to_frames(points, np.array([
-    [-1,  0,  0],
-    [0, 1,  0],
+    [1,  0,  0],
+    [0, -1,  0],
     [0,  0, -1]
 ]))
 
 trajectory = robot.inverse_kinematics_trajectory_frame(
     frames,
     initial_position=current_joints,
-    orientation_mode="Z",
+    orientation_mode="Y",
     regularization_parameter=0.01
 )
 
