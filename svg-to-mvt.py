@@ -53,7 +53,7 @@ def visualise(points):
 
     plt.show()
 
-points = svg.svg_to_points(100, "test.svg")
+points = svg.svg_to_points("test.svg", spacing=4, offset=(0, 0))
 
 plane = Plane(point=[0, 0, 0], normal=[0, 0, 1])
 points = project_to_plane(

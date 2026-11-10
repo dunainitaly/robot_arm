@@ -1,0 +1,5 @@
+ikpy==4.4.4
+matplotlib==3.11.2
+numpy==2.5.4
+svg.path==7.1
+scikit-spatial==11.0.0
