@@ -10,7 +10,7 @@ current_joints = np.zeros(len(robot.links))
 np.set_printoptions(precision=2)
 
 def interpolate_points(
-    endpoints: list[list[float, float, float], list[float, float, float]],
+    endpoints: tuple[tuple[float, float, float],tuple[float, float, float]],
     n: int = 10,
     endpoint: bool = True,
 ) -> np.ndarray:
@@ -19,7 +19,7 @@ def interpolate_points(
     t = np.linspace(0.0, 1.0, n, endpoint=endpoint)[:, None]
     return a + t * (b - a)
 
-def points_to_frames(points:List[float,float,float],orientation_matrix):
+def points_to_frames(points:List[tuple[float,float,float]],orientation_matrix):
     frames = []
     for point in points:
         matrix = np.eye(4)
@@ -43,7 +43,7 @@ def visualise(points):
             ax.set_ylim(-200, 200)
             ax.set_zlim(0, 300)
 
-            plt.pause(0.025)
+            plt.pause(0.5)
 
     plt.show()
 
