@@ -38,4 +38,4 @@ def svg_to_points(filename: str, spacing: int = 2, offset: Point = (0, 0, 0)) ->
 
 
 if __name__ == "__main__":
-    svg_to_points("test.svg",spacing=4,offset=(20,100))
+    svg_to_points("test.svg",spacing=4, offset=(20,100, 2))
