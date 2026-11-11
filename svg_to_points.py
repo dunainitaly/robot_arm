@@ -17,9 +17,15 @@ def svg_to_points(filename: str, spacing: int = 2, offset: Point = (0, 0, 0)) ->
 
     paths, attributes = svg2paths(filename)
 
+<<<<<<< HEAD
     points: list[Line] = []
     offset_calc = offset[0] + offset[1] * 1j
 
+=======
+    points = []
+    offset = offset[0] + offset[1] * 1j
+    print(offset)
+>>>>>>> 504e309 (.)
     for path in paths:
         line: Line = []
         length = path.length()
@@ -36,3 +42,7 @@ def svg_to_points(filename: str, spacing: int = 2, offset: Point = (0, 0, 0)) ->
             line.append((pos.real, pos.imag, offset[2]))
         points.append(line)
     return points
+
+
+if __name__ == "__main__":
+    svg_to_points("test.svg",spacing=4,offset=(20,100))
