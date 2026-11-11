@@ -64,7 +64,7 @@ def visualise(points, trajectory):
 
 if __name__ == "__main__":
     origin = (0, 0, 0)
-    plane = Plane(point=origin, normal=[0, 11, -1])
+    plane = Plane(point=origin, normal=[0, 0, 1])
 
     lines = svg.svg_to_points("logo_gml.svg", spacing=4, offset=origin)
     points_unpacked = []
