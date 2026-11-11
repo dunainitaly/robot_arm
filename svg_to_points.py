@@ -1,23 +1,27 @@
 import numpy as np
 from svgpathtools import svg2paths
 
+Point = tuple[float, float, float]
+Line = list[Point]
 
-def svg_to_points(filename, spacing=2, offset: tuple[float, float, float] = (0, 0, 0)) -> list[tuple[float, float, float]]:
+def svg_to_points(filename: str, spacing: int = 2, offset: Point = (0, 0, 0)) -> list[Line]:
     '''
     converts svg lines to list of points through which the line goes
 
     filename: str     svg file path
     spacing: int      
     offset: tuple[float, float, float]
+
+    returns list of lines, where each line is list of points (tuple[float,float,float])
     '''
 
     paths, attributes = svg2paths(filename)
 
-    points: list[tuple[float, float, float]] = []
+    points: list[Line] = []
     offset_calc = offset[0] + offset[1] * 1j
 
-    # will not work for multiple lines if they aren't connected !!!
     for path in paths:
+        line: Line = []
         length = path.length()
 
         if length == 0:
@@ -29,6 +33,6 @@ def svg_to_points(filename, spacing=2, offset: tuple[float, float, float] = (0, 
             t = path.ilength(distance)
             pos = path.point(t) + offset_calc
 
-            points.append((pos.real, pos.imag, offset[2]))
-
+            line.append((pos.real, pos.imag, offset[2]))
+        points.append(line)
     return points
