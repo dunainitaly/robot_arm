@@ -63,10 +63,22 @@ def visualise(points, trajectory):
     plt.show()
 
 if __name__ == "__main__":
-    origin = (0, -100, 100)
+    origin = (0, 0, 0)
+    plane = Plane(point=origin, normal=[0, 0, -1])
+
     lines = svg.svg_to_points("C:\\Users\\misae\\Downloads\\logo_gml.cz.svg", spacing=4, offset=origin)
+    points_unpacked = []
+    complete_trajectory = []
+    for line in lines:
+        for point in line:
+            points_unpacked.append(point)
+    
+    all_points = project_to_plane(
+                plane=plane,
+                points=Points(points_unpacked)
+            )
+    
     for points in lines:
-        plane = Plane(point=origin, normal=[0, 0, 1])
         points = project_to_plane(
             plane=plane,
             points=Points(points)
@@ -93,7 +105,7 @@ if __name__ == "__main__":
             print(robot.forward_kinematics(joints))
 
 
-        visualise(points, trajectory)
+        visualise(all_points, trajectory)
 
 
 
