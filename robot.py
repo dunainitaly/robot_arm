@@ -9,7 +9,7 @@ L1 = 80
 L2 = 95
 L3 = 50
 
-robot = Chain(
+robot: Chain = Chain(
     name="merkur_beta_6",
     links=[
         OriginLink(),

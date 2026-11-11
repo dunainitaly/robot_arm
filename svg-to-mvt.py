@@ -54,42 +54,42 @@ def visualise(points):
             # iterr+=1
     plt.show()
 
-points = svg.svg_to_points("test.svg", spacing=4, offset=(0, -100))
+if __name__ == "__main__":
+    points = svg.svg_to_points("test.svg", spacing=4, offset=(0, -100))
+
+    plane = Plane(point=[0, 0, 0], normal=[0, 0, 1])
+    points = project_to_plane(
+        plane=plane,
+        points=Points(points)
+    )
+
+    frames = points_to_frames(points, np.array([
+        [ 0, 0,  1],
+        [ 0, 1,  0],
+        [-1, 0,  0],
+    ]))
+
+    print(frames)
+    points =  np.asarray(points)
+    trajectory = robot.inverse_kinematics_trajectory_frame(
+        frames,
+        initial_position=current_joints,
+        orientation_mode="all",
+        regularization_parameter=0.01
+    )
+    # print(trajectory)
+
+
+    for frame, joints in zip(frames, trajectory):
+        print(robot.forward_kinematics(joints))
+
+
+    visualise(points)
 
 
 
-plane = Plane(point=[0, 0, 0], normal=[0, 0, 1])
-points = project_to_plane(
-    plane=plane,
-    points=Points(points)
-)
-
-frames = points_to_frames(points, np.array([
-    [ 0, 0,  1],
-    [ 0, 1,  0],
-    [-1, 0,  0],
-]))
-print(frames)
-points =  np.asarray(points)
-trajectory = robot.inverse_kinematics_trajectory_frame(
-    frames,
-    initial_position=current_joints,
-    orientation_mode="all",
-    regularization_parameter=0.01
-)
-# print(trajectory)
-
-
-for frame, joints in zip(frames, trajectory):
-    print(robot.forward_kinematics(joints))
-
-
-visualise(points)
-
-
-
-#| Axis    | Color  | Code                 |
-#| ------- | ------ | -------------------- |
-#| Local X | Green  | directions_colors[0] |
-#| Local Y | Cyan   | directions_colors[1] |
-#| Local Z | Orange | directions_colors[2] |
+    #| Axis    | Color  | Code                 |
+    #| ------- | ------ | -------------------- |
+    #| Local X | Green  | directions_colors[0] |
+    #| Local Y | Cyan   | directions_colors[1] |
+    #| Local Z | Orange | directions_colors[2] |
