@@ -8,6 +8,9 @@ import svg_to_points as svg
 from skspatial.objects import Plane, Point, Vector, Points
 from skspatial.plotting import plot_3d
 from points_to_mvt_line import linear_move
+from mvt_to_winsos import angles_to_sos
+
+
 # start joint configuration
 current_joints = np.zeros(len(robot.links))
 np.set_printoptions(precision=2, suppress=True)
@@ -66,7 +69,7 @@ def visualise(points, trajectory):
     plt.show()
 
 if __name__ == "__main__":
-    origin = (0, 0, 0)
+    origin = (10, 10, -100)
     plane = Plane(point=origin, normal=[0, 0, 1])
 
     lines = svg.svg_to_points("logo_gml.svg", spacing=4, offset=origin)
@@ -90,7 +93,6 @@ if __name__ == "__main__":
             plane=plane,
             points=Points(points)
         )
-
         frames = points_to_frames(points, np.array([
             [ 0, 0,  1],
             [ 0, 1,  0],
@@ -121,6 +123,7 @@ if __name__ == "__main__":
         print(frames)
 
     visualise(all_points, complete_trajectory)
+    angles_to_sos(complete_trajectory)
 
 
 

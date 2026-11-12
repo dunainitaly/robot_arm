@@ -5,9 +5,9 @@ from ikpy.link import OriginLink, URDFLink
 import matplotlib.pyplot as plt
 
 
-L1 = 80
-L2 = 95
-L3 = 50
+L1 = 100
+L2 = 100
+L3 = 100
 
 robot: Chain = Chain(
     name="merkur_beta_6",
@@ -20,7 +20,7 @@ robot: Chain = Chain(
             origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 0, 1],
-            bounds=(-np.pi, np.pi),
+            bounds=(-np.pi/4, np.pi/4),
         ),
 
         # J2: shoulder pitch
@@ -29,7 +29,7 @@ robot: Chain = Chain(
             origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(-np.pi, np.pi),
+            bounds=(0, np.pi/2),
         ),
 
         # J3: elbow pitch
@@ -38,7 +38,7 @@ robot: Chain = Chain(
             origin_translation=[L1, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(-np.pi, np.pi),
+            bounds=(-np.pi, -1/12*np.pi),
         ),
 
         # J4: wrist pitch
@@ -47,7 +47,7 @@ robot: Chain = Chain(
             origin_translation=[L2, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(-np.pi , np.pi),
+            bounds=(0 , np.pi/2),
         ),
 
         # J5: wrist roll
