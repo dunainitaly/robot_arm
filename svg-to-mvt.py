@@ -80,8 +80,10 @@ if __name__ == "__main__":
                 plane=plane,
                 points=Points(points_unpacked)
             )
-    
+    print(lines)
     for points in lines:
+        print("test")
+
         points = project_to_plane(
             plane=plane,
             points=Points(points)
@@ -108,10 +110,11 @@ if __name__ == "__main__":
             #print(robot.forward_kinematics(joints))
         
         complete_trajectory.extend(trajectory)
-        #print(complete_trajectory)
         complete_trajectory.extend(move(frames[0][:3, -1], frames[-1][:3, -1]))
-        #print(complete_trajectory)
         print(move(frames[0][:3, -1], frames[-1][:3, -1]))
+        print(frames[0][:3, -1], frames[-1][:3, -1])
+        print(frames)
+
     visualise(all_points, complete_trajectory)
 
 
