@@ -9,7 +9,7 @@ def load_template():
 
 def rad_to_sos(rad: float, ):
     if rad > np.pi/2 or rad < 0:
-        raise ValueError("rad outside operatable range, check position!")
+        return 255
     if rad > np.pi/2 - 0.3 or rad > 0.3:
         print(Warning("close to operatable rage!!!"))
     servo: float = rad/(np.pi/2)*255
@@ -24,6 +24,6 @@ def angles_to_sos(trajectory: list[list[float]]):
             base = 255 - rad_to_sos(angles[1] + np.pi/4)
             elbow = rad_to_sos(angles[2] + np.pi/2)
             join = rad_to_sos(angles[3] + 1/12*np.pi)
-            wrist = rad_to_sos(angles[4] - np.pi/4)
+            wrist = rad_to_sos(angles[4] + np.pi/4)
             
             f.write(f"3 0 {base} {elbow} {join} {wrist} 138 0 151\n")
