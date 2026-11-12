@@ -79,7 +79,7 @@ def visualise(points, trajectory):
     plt.show()
 
 if __name__ == "__main__":
-    origin = (90, 90, -100)
+    origin = (30, 30, -100)
     plane = Plane(point=origin, normal=[0, 0, 1])
 
     travel_height = 10
@@ -88,7 +88,7 @@ if __name__ == "__main__":
         point=np.asarray(origin) + np.array([0, 0, travel_height]),
         normal=[0, 0, 1]
     )
-    lines = svg.svg_to_points("logo_gml.svg", spacing=4, offset=origin)
+    lines = svg.svg_to_points("drawing.svg", spacing=4, offset=origin)
     points_unpacked = []
     complete_trajectory = []
     for line in lines:
