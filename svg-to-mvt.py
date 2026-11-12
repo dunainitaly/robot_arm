@@ -12,6 +12,16 @@ from points_to_mvt_line import linear_move
 current_joints = np.zeros(len(robot.links))
 np.set_printoptions(precision=2, suppress=True)
 
+def interpolate_points(
+    endpoints: tuple[tuple[float, float, float],tuple[float, float, float]],
+    n: int = 10,
+    endpoint: bool = True,
+) -> np.ndarray:
+    """Return n points evenly spaced along the segment between two 3D positions."""
+    a, b = np.asarray(endpoints, dtype=float)
+    t = np.linspace(0.0, 1.0, n, endpoint=endpoint)[:, None]
+    return a + t * (b - a)
+
 def project_to_plane(plane: Plane, points: Points) -> list[list[float]]:
     return np.asarray(plane.project_points(points))
 
@@ -96,30 +106,31 @@ if __name__ == "__main__":
             [ 0, 1,  0],
             [-1, 0,  0],
         ]))
-        if start is not None:
-            complete_trajectory.extend(move(start,frames[0][:3, -1]))
 
-        #print(frames)
+        if start is not None:
+            mpoints = interpolate_points([start,frames[0][:3, -1]])
+            mframes = points_to_frames(points, np.eye(3))
+
         points =  np.asarray(points)
-        trajectory = robot.inverse_kinematics_trajectory_frame(
-            frames,
-            initial_position=current_joints,
-            orientation_mode="all",
-            regularization_parameter=0.01
-        )
         #print(trajectory)
 
 
         #for frame, joints in zip(frames, trajectory):
             #print(robot.forward_kinematics(joints))
         
-        complete_trajectory.extend(trajectory)
+        #complete_trajectory.extend(trajectory)
         start=frames[-1][:3, -1]
 
         print(move(frames[0][:3, -1], frames[-1][:3, -1]))
         print(frames[0][:3, -1], frames[-1][:3, -1])
         print(frames)
 
+    trajectory = robot.inverse_kinematics_trajectory_frame(
+        frames,
+        initial_position=current_joints,
+        orientation_mode="all",
+        regularization_parameter=0.01
+    )
     visualise(all_points, complete_trajectory)
 
 
