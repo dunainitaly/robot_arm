@@ -124,8 +124,3 @@ if __name__ == "__main__":
 
 
 
-    #| Axis    | Color  | Code                 |
-    #| ------- | ------ | -------------------- |
-    #| Local X | Green  | directions_colors[0] |
-    #| Local Y | Cyan   | directions_colors[1] |
-    #| Local Z | Orange | directions_colors[2] |
