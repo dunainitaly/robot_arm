@@ -78,7 +78,7 @@ def visualise(points, trajectory):
 if __name__ == "__main__":
     origin = (0, 0, 0)
     plane = Plane(point=origin, normal=[0, 0, 1])
-    no_draw_plane = Plane(point=(0, 0, 4), normal=[0, 0, 1])
+    travel_plane = Plane(point=(0, 0, 4), normal=[0, 0, 1])
 
     lines = svg.svg_to_points("logo_gml.svg", spacing=4, offset=origin)
     points_unpacked = []
@@ -93,14 +93,14 @@ if __name__ == "__main__":
             )
     print(lines)
 
-    start = None
+    previous_path_end = None
     pen_orientation = np.array([
             [ 0, 0,  1],
             [ 0, 1,  0],
             [-1, 0,  0],
         ])    
     all_frames = []
-    mframes = []
+    travel_frames = []
 
     for points in lines:
 
@@ -109,22 +109,21 @@ if __name__ == "__main__":
             points=Points(points)
         )
 
-        frames = points_to_frames(points, pen_orientation)
+        drawing_frames = points_to_frames(points, pen_orientation)
 
-        if start is not None:
-            mstart, mend = project_to_plane(plane = no_draw_plane, points=Points([start,frames[0][:3, -1]]))
-            print(mstart, mend)
-            mpoints = interpolate_points((mstart,mend))
-            mframes = points_to_frames(mpoints, pen_orientation)
+        if previous_path_end is not None:
+            travel_start, travel_end = project_to_plane(plane = travel_plane, points=Points([previous_path_end,drawing_frames[0][:3, -1]]))
+            travel_points = interpolate_points((travel_start,travel_end))
+            travel_frames = points_to_frames(travel_points, pen_orientation)
 
         points =  np.asarray(points)
 
         #for frame, joints in zip(frames, trajectory):
             #print(robot.forward_kinematics(joints))
         
-        start=frames[-1][:3, -1]
-        all_frames.extend(mframes)
-        all_frames.extend(frames)
+        previous_path_end=drawing_frames[-1][:3, -1]
+        all_frames.extend(travel_frames)
+        all_frames.extend(drawing_frames)
 
 
     trajectory = robot.inverse_kinematics_trajectory_frame(
