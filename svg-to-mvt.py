@@ -15,6 +15,16 @@ from mvt_to_winsos import angles_to_sos
 current_joints = np.zeros(len(robot.links))
 np.set_printoptions(precision=2, suppress=True)
 
+def interpolate_points(
+    endpoints: tuple[tuple[float, float, float],tuple[float, float, float]],
+    n: int = 10,
+    endpoint: bool = True,
+) -> np.ndarray:
+    """Return n points evenly spaced along the segment between two 3D positions."""
+    a, b = np.asarray(endpoints, dtype=float)
+    t = np.linspace(0.0, 1.0, n, endpoint=endpoint)[:, None]
+    return a + t * (b - a)
+
 def project_to_plane(plane: Plane, points: Points) -> list[list[float]]:
     return np.asarray(plane.project_points(points))
 
@@ -71,6 +81,7 @@ def visualise(points, trajectory):
 if __name__ == "__main__":
     origin = (10, 10, -100)
     plane = Plane(point=origin, normal=[0, 0, 1])
+    travel_plane = Plane(point=(0, 0, 4), normal=[0, 0, 1])
 
     lines = svg.svg_to_points("logo_gml.svg", spacing=4, offset=origin)
     points_unpacked = []
@@ -85,45 +96,46 @@ if __name__ == "__main__":
             )
     print(lines)
 
-    start = None
+    previous_path_end = None
+    pen_orientation = np.array([
+            [ 0, 0,  1],
+            [ 0, 1,  0],
+            [-1, 0,  0],
+        ])    
+    all_frames = []
+    travel_frames = []
+
     for points in lines:
-        print("test")
 
         points = project_to_plane(
             plane=plane,
             points=Points(points)
         )
-        frames = points_to_frames(points, np.array([
-            [ 0, 0,  1],
-            [ 0, 1,  0],
-            [-1, 0,  0],
-        ]))
-        if start is not None:
-            complete_trajectory.extend(move(start,frames[0][:3, -1]))
 
-        #print(frames)
+        drawing_frames = points_to_frames(points, pen_orientation)
+
+        if previous_path_end is not None:
+            travel_start, travel_end = project_to_plane(plane = travel_plane, points=Points([previous_path_end,drawing_frames[0][:3, -1]]))
+            travel_points = interpolate_points((travel_start,travel_end))
+            travel_frames = points_to_frames(travel_points, pen_orientation)
+
         points =  np.asarray(points)
-        trajectory = robot.inverse_kinematics_trajectory_frame(
-            frames,
-            initial_position=current_joints,
-            orientation_mode="all",
-            regularization_parameter=0.01
-        )
-        #print(trajectory)
-
 
         #for frame, joints in zip(frames, trajectory):
             #print(robot.forward_kinematics(joints))
         
-        complete_trajectory.extend(trajectory)
-        start=frames[-1][:3, -1]
+        previous_path_end=drawing_frames[-1][:3, -1]
+        all_frames.extend(travel_frames)
+        all_frames.extend(drawing_frames)
 
-        print(move(frames[0][:3, -1], frames[-1][:3, -1]))
-        print(frames[0][:3, -1], frames[-1][:3, -1])
-        print(frames)
 
-    visualise(all_points, complete_trajectory)
-    angles_to_sos(complete_trajectory)
+    trajectory = robot.inverse_kinematics_trajectory_frame(
+        all_frames,
+        initial_position=current_joints,
+        orientation_mode="all",
+        regularization_parameter=0.01
+    )
+    visualise(all_points, trajectory)
 
 
 
