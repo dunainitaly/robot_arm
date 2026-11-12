@@ -1,6 +1,6 @@
-import math
+import numpy as np
 
-servo_offsets = [0, 0, 0, 0, 0, 0, 0, 0]
+servo_offsets = [0, -np.pi/4, -np.pi/2, 1/12*np.pi, -np.pi/4, 0, 0, 0]
 
 def load_template():
     lines = []
@@ -9,22 +9,21 @@ def load_template():
     return lines
 
 def rad_to_sos(rad: float):
-    rad -= math.pi/2
-    if rad > math.pi or rad < 0:
+    if rad > np.pi or rad < 0:
         raise ValueError("rad outside operatable range, check position!")
-    if rad > math.pi-0.3 or rad > 0.3:
+    if rad > np.pi-0.3 or rad > 0.3:
         print(Warning("close to operatable rage!!!"))
-    servo: float = rad/(math.pi)*255
+    servo: float = rad/(np.pi)*255
     return int(servo)
 
 def angles_to_sos(trajectory: list[list[float]]):
     with open(input("enter name: ")+".sos", "w") as f:
         f.writelines(load_template())
         f.write(f"{len(trajectory)}\n")
-        print(angles, servo_offsets)
         for angles in trajectory:
             f.write("15 ")
+            print(angles, servo_offsets)
             for offset, angle in zip(servo_offsets, angles):
-                f.write(f"{rad_to_sos(angle + offset)} ")
-        f.write("\n")
-        input()
+                print(angle)
+                f.write(f"{rad_to_sos(angle - offset)} ")
+            f.write("\n")

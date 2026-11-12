@@ -79,10 +79,10 @@ def visualise(points, trajectory):
     plt.show()
 
 if __name__ == "__main__":
-    origin = (10, 10, -100)
+    origin = (90, 90, -100)
     plane = Plane(point=origin, normal=[0, 0, 1])
 
-    travel_height = 4
+    travel_height = 10
 
     travel_plane = Plane(
         point=np.asarray(origin) + np.array([0, 0, travel_height]),
@@ -140,7 +140,7 @@ if __name__ == "__main__":
         orientation_mode="all",
         regularization_parameter=0.001
     )
-    visualise(all_points, trajectory)
-
+    # visualise(all_points, trajectory)
+    angles_to_sos(trajectory)
 
 

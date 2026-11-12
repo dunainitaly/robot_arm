@@ -29,7 +29,7 @@ robot: Chain = Chain(
             origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(0, np.pi/2),
+            bounds=(-np.pi/2,0),
         ),
 
         # J3: elbow pitch
@@ -38,7 +38,7 @@ robot: Chain = Chain(
             origin_translation=[L1, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 1, 0],
-            bounds=(-np.pi, -1/12*np.pi),
+            bounds=(1/12*np.pi, 1/3*np.pi),
         ),
 
         # J4: wrist pitch
@@ -56,7 +56,7 @@ robot: Chain = Chain(
             origin_translation=[0, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[1, 0, 0],
-            bounds=(-np.pi, np.pi),
+            bounds=(-np.pi/4, np.pi/4),
         ),
 
         # J6: tool roll
@@ -65,7 +65,7 @@ robot: Chain = Chain(
             origin_translation=[L3, 0, 0],
             origin_orientation=[0, 0, 0],
             rotation=[0, 0, 1],
-            bounds=(-np.pi, np.pi),
+            bounds=(0, np.pi/2),
         ),
 
         # Fixed pen/end effector
