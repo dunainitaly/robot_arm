@@ -104,11 +104,14 @@ if __name__ == "__main__":
         #print(trajectory)
 
 
-        for frame, joints in zip(frames, trajectory):
+        #for frame, joints in zip(frames, trajectory):
             #print(robot.forward_kinematics(joints))
         
-        complete_trajectory.append(trajectory)
-        complete_trajectory.append(move(frames[0][:3, -1], frames[-1][:3, -1]))
+        complete_trajectory.extend(trajectory)
+        #print(complete_trajectory)
+        complete_trajectory.extend(move(frames[0][:3, -1], frames[-1][:3, -1]))
+        #print(complete_trajectory)
+        print(move(frames[0][:3, -1], frames[-1][:3, -1]))
     visualise(all_points, complete_trajectory)
 
 
