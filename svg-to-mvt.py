@@ -81,8 +81,13 @@ def visualise(points, trajectory):
 if __name__ == "__main__":
     origin = (10, 10, -100)
     plane = Plane(point=origin, normal=[0, 0, 1])
-    travel_plane = Plane(point=(0, 0, 4), normal=[0, 0, 1])
 
+    travel_height = 4
+
+    travel_plane = Plane(
+        point=np.asarray(origin) + np.array([0, 0, travel_height]),
+        normal=[0, 0, 1]
+    )
     lines = svg.svg_to_points("logo_gml.svg", spacing=4, offset=origin)
     points_unpacked = []
     complete_trajectory = []
@@ -133,7 +138,7 @@ if __name__ == "__main__":
         all_frames,
         initial_position=current_joints,
         orientation_mode="all",
-        regularization_parameter=0.01
+        regularization_parameter=0.001
     )
     visualise(all_points, trajectory)
 
