@@ -79,7 +79,7 @@ def visualise(points, trajectory):
     plt.show()
 
 if __name__ == "__main__":
-    origin = (30, 30, -100)
+    origin = (30, 30, -70)
     plane = Plane(point=origin, normal=[0, 0, 1])
 
     travel_height = 10
