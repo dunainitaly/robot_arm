@@ -27,7 +27,7 @@ def points_to_frames(points: list, orientation_matrix: np.ndarray):
     return frames
 
 def move(start_point: tuple[float, float, float], end_point: tuple[float, float, float]):
-    _, trajectory = linear_move((start_point, end_point))
+    _, trajectory = linear_move(start_point, end_point)
     return trajectory
 
 def visualise(points, trajectory):
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             [-1, 0,  0],
         ]))
 
-        print(frames)
+        #print(frames)
         points =  np.asarray(points)
         trajectory = robot.inverse_kinematics_trajectory_frame(
             frames,
@@ -101,14 +101,14 @@ if __name__ == "__main__":
             orientation_mode="all",
             regularization_parameter=0.01
         )
-        print(trajectory)
+        #print(trajectory)
 
 
         for frame, joints in zip(frames, trajectory):
-            print(robot.forward_kinematics(joints))
+            #print(robot.forward_kinematics(joints))
         
-        complete_trajectory += trajectory
-        complete_trajectory += move(start, end)
+        complete_trajectory.append(trajectory)
+        complete_trajectory.append(move(frames[0][:3, -1], frames[-1][:3, -1]))
     visualise(all_points, complete_trajectory)
 
 
