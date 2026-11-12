@@ -78,6 +78,7 @@ def visualise(points, trajectory):
 if __name__ == "__main__":
     origin = (0, 0, 0)
     plane = Plane(point=origin, normal=[0, 0, 1])
+    no_draw_plane = Plane(point=(0, 0, 4), normal=[0, 0, 1])
 
     lines = svg.svg_to_points("logo_gml.svg", spacing=4, offset=origin)
     points_unpacked = []
@@ -102,7 +103,6 @@ if __name__ == "__main__":
     mframes = []
 
     for points in lines:
-        print("test")
 
         points = project_to_plane(
             plane=plane,
@@ -112,7 +112,9 @@ if __name__ == "__main__":
         frames = points_to_frames(points, pen_orientation)
 
         if start is not None:
-            mpoints = interpolate_points((start,frames[0][:3, -1]), n=10)
+            mstart, mend = project_to_plane(plane = no_draw_plane, points=Points([start,frames[0][:3, -1]]))
+            print(mstart, mend)
+            mpoints = interpolate_points((mstart,mend))
             mframes = points_to_frames(mpoints, pen_orientation)
 
         points =  np.asarray(points)
@@ -121,12 +123,9 @@ if __name__ == "__main__":
             #print(robot.forward_kinematics(joints))
         
         start=frames[-1][:3, -1]
-        all_frames.extend(frames)
         all_frames.extend(mframes)
+        all_frames.extend(frames)
 
-        # print(move(frames[0][:3, -1], frames[-1][:3, -1]))
-        # print(frames[0][:3, -1], frames[-1][:3, -1])
-        # print(frames)
 
     trajectory = robot.inverse_kinematics_trajectory_frame(
         all_frames,
