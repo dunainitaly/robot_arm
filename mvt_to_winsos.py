@@ -21,7 +21,7 @@ def angles_to_sos(trajectory: list[list[float]]):
         f.write(f"{len(trajectory)}\n")
         for angles in trajectory:
             print(angles)
-            base = rad_to_sos(angles[1] + np.pi/4)
+            base = -rad_to_sos(angles[1] + np.pi/4)
             elbow = rad_to_sos(angles[2] + np.pi/2)
             join = rad_to_sos(angles[3] + 1/12*np.pi)
             wrist = rad_to_sos(angles[4])
