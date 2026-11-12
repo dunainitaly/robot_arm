@@ -1,1 +1,56 @@
-<path class="logo-fill-blue" d="M82.73,87.77h0v.02h-.01c-2.85,2.67-6.66,5.24-10.01,6.94-6.93,3.51-14.67,5.42-22.64,5.42-13.81,0-26.32-5.6-35.38-14.64C5.61,76.44,0,63.94,0,50.14S5.61,23.84,14.68,14.79c5.69-5.69,12.75-10.01,20.63-12.44C49.3-1.96,68.05-.21,82.01,6.47v10.81c-12.67-6.92-30.99-10.1-45.01-5.48-6.08,2-11.37,5.39-15.57,9.78-7.31,7.3-11.83,17.4-11.83,28.57s4.52,21.27,11.83,28.57c7.32,7.31,17.44,11.83,28.63,11.83,6.47,0,12.74-1.53,18.33-4.37,1.55-.79,3.06-1.67,4.5-2.66v-27.78l-17.23,8.46-20.75-10.3v-11.07l.03-.05,20.73,10.27,17.23-8.28v-.03h9.84v43.02Z M98.06,44.74V79.99H121.88V87.87H88.2V79.99H88.22V44.74H98.06Z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="logo_gml.cz.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.68862935"
+     inkscape:cx="397.16576"
+     inkscape:cy="559.80768"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1" />
+  <g
+     id="g1"
+     transform="translate(33.042691,45.337645)"
+     style="fill:none;stroke:#000000;stroke-opacity:1">
+    <path
+       class="logo-fill-blue"
+       d="m 82.73,87.77 v 0 0.02 h -0.01 c -2.85,2.67 -6.66,5.24 -10.01,6.94 -6.93,3.51 -14.67,5.42 -22.64,5.42 -13.81,0 -26.32,-5.6 -35.38,-14.64 C 5.61,76.44 0,63.94 0,50.14 0,36.34 5.61,23.84 14.68,14.79 20.37,9.1 27.43,4.78 35.31,2.35 49.3,-1.96 68.05,-0.21 82.01,6.47 V 17.28 C 69.34,10.36 51.02,7.18 37,11.8 c -6.08,2 -11.37,5.39 -15.57,9.78 -7.31,7.3 -11.83,17.4 -11.83,28.57 0,11.17 4.52,21.27 11.83,28.57 7.32,7.31 17.44,11.83 28.63,11.83 6.47,0 12.74,-1.53 18.33,-4.37 1.55,-0.79 3.06,-1.67 4.5,-2.66 V 55.74 L 55.66,64.2 34.91,53.9 V 42.83 l 0.03,-0.05 20.73,10.27 17.23,-8.28 v -0.03 h 9.84 v 43.02 z"
+       id="path1"
+       style="stroke:#000000;stroke-opacity:1;fill:none" />
+    <polygon
+       class="logo-fill-blue"
+       points="98.06,79.99 121.88,79.99 121.88,87.87 88.2,87.87 88.2,79.99 88.22,79.99 88.22,44.74 98.06,44.74 "
+       id="polygon1"
+       style="fill:none;stroke:#000000;stroke-opacity:1" />
+  </g>
+</svg>
