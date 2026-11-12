@@ -81,6 +81,8 @@ if __name__ == "__main__":
                 points=Points(points_unpacked)
             )
     print(lines)
+
+    start = None
     for points in lines:
         print("test")
 
@@ -94,6 +96,8 @@ if __name__ == "__main__":
             [ 0, 1,  0],
             [-1, 0,  0],
         ]))
+        if start is not None:
+            complete_trajectory.extend(move(start,frames[0][:3, -1]))
 
         #print(frames)
         points =  np.asarray(points)
@@ -110,7 +114,8 @@ if __name__ == "__main__":
             #print(robot.forward_kinematics(joints))
         
         complete_trajectory.extend(trajectory)
-        complete_trajectory.extend(move(frames[0][:3, -1], frames[-1][:3, -1]))
+        start=frames[-1][:3, -1]
+
         print(move(frames[0][:3, -1], frames[-1][:3, -1]))
         print(frames[0][:3, -1], frames[-1][:3, -1])
         print(frames)
