@@ -7,8 +7,7 @@ from typing import List, Dict
 import svg_to_points as svg
 from skspatial.objects import Plane, Point, Vector, Points
 from skspatial.plotting import plot_3d
-
-
+from point_to_mvt_line import interpolate_points as linear_move
 # start joint configuration
 current_joints = np.zeros(len(robot.links))
 np.set_printoptions(precision=2, suppress=True)
@@ -26,6 +25,10 @@ def points_to_frames(points: list, orientation_matrix: np.ndarray):
         frames.append(matrix)
 
     return frames
+
+def move(start_point: tuple[float, float, float], end_point: tuple[float, float, float]):
+    linear_move((start_point, end_point))
+    
 
 def visualise(points, trajectory):
     fig = plt.figure(figsize=(9, 7))
@@ -103,9 +106,10 @@ if __name__ == "__main__":
 
         for frame, joints in zip(frames, trajectory):
             print(robot.forward_kinematics(joints))
-
-
-        visualise(all_points, trajectory)
+        
+        complete_trajectory += trajectory
+        complete_trajectory += move(start, end)
+    visualise(all_points, complete_trajectory)
 
 
 
