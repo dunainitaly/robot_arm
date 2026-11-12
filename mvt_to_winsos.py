@@ -1,7 +1,7 @@
 import numpy as np
 
 servo_offsets = [0, -np.pi/4, -np.pi/2, 1/12*np.pi, -np.pi/4, 0, 0, 0]
-
+servo_range = [0, 90, ]
 def load_template():
     lines = []
     with open("temp.sos") as f:

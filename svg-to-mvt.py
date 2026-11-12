@@ -140,7 +140,7 @@ if __name__ == "__main__":
         orientation_mode="all",
         regularization_parameter=0.001
     )
-    # visualise(all_points, trajectory)
+    visualise(all_points, trajectory)
     angles_to_sos(trajectory)
 
 

@@ -5,9 +5,9 @@ from ikpy.link import OriginLink, URDFLink
 import matplotlib.pyplot as plt
 
 
-L1 = 100
-L2 = 100
-L3 = 100
+L1 = 90
+L2 = 97
+L3 = 110
 
 robot: Chain = Chain(
     name="merkur_beta_6",
