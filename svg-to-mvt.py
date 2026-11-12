@@ -93,6 +93,14 @@ if __name__ == "__main__":
     print(lines)
 
     start = None
+    pen_orientation = np.array([
+            [ 0, 0,  1],
+            [ 0, 1,  0],
+            [-1, 0,  0],
+        ])    
+    all_frames = []
+    mframes = []
+
     for points in lines:
         print("test")
 
@@ -101,37 +109,32 @@ if __name__ == "__main__":
             points=Points(points)
         )
 
-        frames = points_to_frames(points, np.array([
-            [ 0, 0,  1],
-            [ 0, 1,  0],
-            [-1, 0,  0],
-        ]))
+        frames = points_to_frames(points, pen_orientation)
 
         if start is not None:
-            mpoints = interpolate_points([start,frames[0][:3, -1]])
-            mframes = points_to_frames(points, np.eye(3))
+            mpoints = interpolate_points((start,frames[0][:3, -1]), n=10)
+            mframes = points_to_frames(mpoints, pen_orientation)
 
         points =  np.asarray(points)
-        #print(trajectory)
-
 
         #for frame, joints in zip(frames, trajectory):
             #print(robot.forward_kinematics(joints))
         
-        #complete_trajectory.extend(trajectory)
         start=frames[-1][:3, -1]
+        all_frames.extend(frames)
+        all_frames.extend(mframes)
 
-        print(move(frames[0][:3, -1], frames[-1][:3, -1]))
-        print(frames[0][:3, -1], frames[-1][:3, -1])
-        print(frames)
+        # print(move(frames[0][:3, -1], frames[-1][:3, -1]))
+        # print(frames[0][:3, -1], frames[-1][:3, -1])
+        # print(frames)
 
     trajectory = robot.inverse_kinematics_trajectory_frame(
-        frames,
+        all_frames,
         initial_position=current_joints,
         orientation_mode="all",
         regularization_parameter=0.01
     )
-    visualise(all_points, complete_trajectory)
+    visualise(all_points, trajectory)
 
 
 
