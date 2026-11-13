@@ -84,10 +84,6 @@ if __name__ == "__main__":
 
     travel_height = 10
 
-    travel_plane = Plane(
-        point=np.asarray(origin) + np.array([0, 0, travel_height]),
-        normal=[0, 0, 1]
-    )
     lines = svg.svg_to_points("drawing.svg", spacing=4, offset=origin)
     points_unpacked = []
     complete_trajectory = []
@@ -102,11 +98,7 @@ if __name__ == "__main__":
     print(lines)
 
     previous_path_end = None
-    pen_orientation = np.array([
-            [ 0, 0,  1],
-            [ 0, 1,  0],
-            [-1, 0,  0],
-        ])    
+    pen_orientation = np.array(np.eye(3))    
     all_frames = []
     travel_frames = []
 
